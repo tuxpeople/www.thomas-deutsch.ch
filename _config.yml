@@ -11,8 +11,8 @@ safe: true
 
 
 # edit here to achieve your personal greatness
-url: http://www.thomas-deutsch.ch/
-baseurl: /
+url: http://tuxpeople.github.io
+baseurl: /www.thomas-deutsch.ch/
 title: Thomas Deutsch
 author: Thomas Deutsch
 description: Mea fragmenti ab terra virtualis
@@ -22,7 +22,7 @@ github: tuxpeople/www.thomas-deutsch.ch # username
 twitter: tdeutsch
 linkedin: thomas-deutsch-844a1839
 #stackoverflow: username   #e.g: users/2735833/proton1h1
-#Comment out if you don't want disqus 
+#Comment out if you don't want disqus
 #disqus: username
 #google_analytics: UA-69391421-1
 
