@@ -11,8 +11,8 @@ safe: true
 
 
 # edit here to achieve your personal greatness
-url: http://tuxpeople.github.io
-baseurl: /www.thomas-deutsch.ch/
+url: https://www.thomas-deutsch.ch
+baseurl: /
 title: Thomas Deutsch
 author: Thomas Deutsch
 description: Mea fragmenti ab terra virtualis
