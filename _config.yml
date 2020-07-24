@@ -1,31 +1,60 @@
-# top level stuff you probably don't need to touch
-highlighter: rouge
-markdown: kramdown
-rdiscount:
-  extensions: [smart]
-permalink: /:title.html
-paginate: 5
-gems: [jekyll-paginate]
-port: 3000
-safe: true
-
-
-# edit here to achieve your personal greatness
-url: https://www.thomas-deutsch.ch
-baseurl: https://www.thomas-deutsch.ch/
 title: Thomas Deutsch
-author: Thomas Deutsch
 description: Mea fragmenti ab terra virtualis
-avatar: profile.png
+author: Thomas Deutsch
+avatar: /profile.png
 email: thomas@tuxpeople.org
-github: tuxpeople # username
-twitter: tdeutsch
-linkedin: thomas-deutsch-844a1839
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate
+
+paginate: 10
+
+# Uncomment the below line and set the tracking ID for enabling Google Analytics
+# 
+# google_analytics: 
+
+# Uncomment the below lines and set the Disqus shortname for enabling Disqus
+# 
+# disqus:
+
+# Jekyll
+# ======
+exclude:
+  - scripts/
+  - README.md
+  - jekyll-theme-hamilton.gemspec
+
+# Jekyll SEO Tag (Optional)
+# =========================
+twitter:
+  username: tdeutsch
+  card: summary
+logo: profile.png
+social:
+  name: Thomas Deutsch
+  links:
+    - https://twitter.com/tdeutsch
+    - https://github.com/tuxpeople
+lang: en
+
+
+
+# LEGACY
+#
+#url: https://www.thomas-deutsch.ch
+#baseurl: https://www.thomas-deutsch.ch/
+#title: Thomas Deutsch
+#author: Thomas Deutsch
+#description: Mea fragmenti ab terra virtualis
+#avatar: profile.png
+#email: thomas@tuxpeople.org
+#github: tuxpeople # username
+#twitter: tdeutsch
+#linkedin: thomas-deutsch-844a1839
 #stackoverflow: username   #e.g: users/2735833/proton1h1
 #Comment out if you don't want disqus
 #disqus: username
 #google_analytics: UA-69391421-1
-
-
-# needed for travis-ci build
-exclude: [vendor]
