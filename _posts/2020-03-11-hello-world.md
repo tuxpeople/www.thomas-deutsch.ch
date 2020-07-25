@@ -7,3 +7,5 @@ tags: [test, hello]
 ---
 
 Hello World! This is a post for testing the looking of Hamilton.
+
+lorem ipsum
