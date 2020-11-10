@@ -13,7 +13,9 @@ plugins:
 
 paginate: 10
 
-remote-theme: ngzhio/jekyll-theme-hamilton
+#remote-theme: ngzhio/jekyll-theme-hamilton
+remote_theme: broccolini/swiss
+theme_color: red
 
 # Uncomment the below line and set the tracking ID for enabling Google Analytics
 #
