@@ -31,6 +31,7 @@ exclude:
   - scripts/
   - README.md
   - jekyll-theme-hamilton.gemspec
+  - backup/
 
 # Jekyll SEO Tag (Optional)
 # =========================
