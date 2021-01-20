@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Hello World
+title: Cura für den Ender 3v2 einrichten
 author: Thomas Deutsch
-date: 2020-09-20 10:25:41 +0200
-tags: [test, hello]
+date: 2021-01-20 13:05:17 +0100
+tags: [3dprint]
 ---
 
 Hello World! This is a post for testing the looking of Hamilton.
