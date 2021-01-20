@@ -3,7 +3,6 @@ permalink: /about/
 title: Über
 published: true
 ---
-# Über
 Das ist mein persönliches Blog. Alle Beiträge sind meine persönliche Meinung. Informationen sind nach bestem Wissen und Gewissen korrekt, eine Haftung kann ich aber nicht übernehnen.
 
 # Kontakt
