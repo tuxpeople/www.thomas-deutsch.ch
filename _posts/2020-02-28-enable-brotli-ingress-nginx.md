@@ -2,10 +2,13 @@
 title: "How to enable Brotli compression on Ingress-Nginx"
 date: 2021-02-28T17:05+0100
 categories:
-  - blog
+  - tech
 tags:
-  - kubernetes
-  - container
+  - Kubernetes
+  - Container
+  - Rancher
+  - RKE
+  - Ingress
 ---
 
 Based on this awesome blog post: https://geko.cloud/how-to-enable-brotli-compression-on-ingress-nginx/
