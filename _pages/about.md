@@ -7,7 +7,6 @@ Das ist mein persönliches Blog. Alle Beiträge sind meine persönliche Meinung.
 
 # Kontakt
 Thomas Deutsch
-
 thomas@tuxpeople.org
 
 # Datenschutzerklärung
