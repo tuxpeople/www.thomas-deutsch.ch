@@ -8,7 +8,7 @@ Das ist mein persönliches Blog. Alle Beiträge sind meine persönliche Meinung.
 # Kontakt
 Thomas Deutsch
 
-Am Besten erreichbar per Mail: thomas@tuxpeople.org
+thomas@tuxpeople.org
 
 # Datenschutzerklärung
 Auf dieser Webseite werden keine personenbezogenen Daten erhoben, gespeichert oder verarbeitet. Es werden keine Cookies verwendet.
