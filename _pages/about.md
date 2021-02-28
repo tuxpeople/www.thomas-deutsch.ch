@@ -13,4 +13,4 @@ thomas@tuxpeople.org
 Auf dieser Webseite werden keine personenbezogenen Daten erhoben, gespeichert oder verarbeitet. Es werden keine Cookies verwendet.
 
 Diese Website wird auf Github als Github Pages gehostet. Die Github Global Privacy Practices sind hier hinterlegt:
-https://help.github.com/articles/global-privacy-practices/
+[https://help.github.com/articles/global-privacy-practices/](https://help.github.com/articles/global-privacy-practices/)
