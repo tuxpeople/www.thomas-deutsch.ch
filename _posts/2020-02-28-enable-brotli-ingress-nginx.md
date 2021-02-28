@@ -11,7 +11,7 @@ tags:
   - Ingress
 ---
 
-Based on this awesome blog post: https://geko.cloud/how-to-enable-brotli-compression-on-ingress-nginx/
+Based on [this](https://geko.cloud/how-to-enable-brotli-compression-on-ingress-nginx/) awesome blog post:
 
 > Brotli is a compression method developed by Google and released in 2015. Depending on the scenario, brotli is capable of achieving a compression rate improvement of between 20 and 30% over gzip, which is the ingress-nginx default compression method.
 
@@ -24,6 +24,7 @@ $ curl -s -I -H 'Accept-Encoding: br' https://rancher.awesomecluster.com | grep 
 $ curl -s -I -H 'Accept-Encoding: gzip' https://rancher.awesomecluster.com | grep content-encoding
 content-encoding: gzip
 ```
+
 Ok, we have gzip but no Brotli. Now, we prepare a yaml for patching. I name it `brotli.yaml`:
 ```yaml
 data:
@@ -35,6 +36,7 @@ data:
     text/css image/x-win-bitmap
   enable-brotli: "true"
 ```
+
 Now lets find the correct config map:
 ```shell
 $ kubectl get cm -l app=ingress-nginx -A
@@ -64,6 +66,7 @@ kind: ConfigMap
 metadata:
 [...]
 ```
+
 Wenn we change a config map, the pods won't notice it. So we need to delet/recreate them. If you do not want a short outage, delete them one after another and wait between the deletions until the newly created pod is up and running. In this case, we just delete them all:
 ```shell
 $ for i in $(kubectl get pods -n ingress-nginx | awk '{ print $1}' | grep ingress); do kubectl delete pod -n ingress-nginx $i; done
