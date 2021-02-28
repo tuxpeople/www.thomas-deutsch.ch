@@ -74,7 +74,7 @@ lang: en
 author:
   name   : "Thomas Deutsch"
   avatar : "/assets/images/thomas.jpg"
-  bio    : "My awesome biography constrained to a sentence or two goes here."
+  bio    : "Husband & Father. Nerdy. IT-Geek. Coffeeholic. Photography & Firefighting. Networking & Linux. Did internet, now containers & cloud."
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
@@ -87,7 +87,7 @@ author:
       url: "https://github.com/tuxpeople"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/xy"
+      url: "https://instagram.com/tdeutsch"
 
 footer:
   links:
@@ -99,7 +99,7 @@ footer:
       url: "https://github.com/tuxpeople"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/xy"
+      url: "https://instagram.com/tdeutsch"
 
 defaults:
   # _posts
