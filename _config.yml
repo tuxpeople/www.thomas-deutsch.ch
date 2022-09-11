@@ -62,7 +62,7 @@ plugins:
 twitter:
   username: tdeutsch
   card: summary
-logo: profile.png
+logo: assets/images/thomas.jpg
 social:
   name: Thomas Deutsch
   links:
