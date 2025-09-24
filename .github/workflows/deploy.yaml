@@ -1,97 +1,44 @@
-name: Build & Deploy Blog (Obsidian → Jekyll → Pages)
+name: Prepare Blog Content
 
 on:
-  push:
-    branches: [master] # ggf. auf "main" ändern
   workflow_dispatch:
   schedule:
-    # Täglicher Rebuild 03:10 UTC ≈ 05:10 Europe/Zurich
-    - cron: "10 3 * * *"
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    - cron: "10 3 * * *"   # täglicher Rebuild
 
 jobs:
-  build:
+  prepare:
     runs-on: ubuntu-latest
     steps:
-      # 1) Blog-Repo (dieses Repo) auschecken
       - name: Checkout blog repo
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+        uses: actions/checkout@v4
 
-      # 2) Vault-Repo mit den Blogquellen auschecken
-      #    - Wenn PUBLIC: reicht das so.
-      #    - Wenn PRIVATE: unten kommentierte "token"-Zeile aktivieren und Repo-Secret SOURCE_TOKEN (PAT) setzen.
       - name: Checkout vault repo
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+        uses: actions/checkout@v4
         with:
-          repository: tuxpeople/obsidian-blog-source # <-- anpassen, falls anderer Name/User
+          repository: tuxpeople/obsidian-blog-source
           path: vault
-          token: ${{ secrets.SOURCE_TOKEN }} # <-- nur nötig, wenn das Vault-Repo privat ist
+          # token: ${{ secrets.SOURCE_TOKEN }}   # falls privat
 
-      # 3) obsidian-export installieren
       - name: Install obsidian-export
         run: |
-          # offizieller Installer der Releases-Seite (aktuelle Version)
           curl --proto '=https' --tlsv1.2 -LsSf https://github.com/zoni/obsidian-export/releases/download/v25.3.0/obsidian-export-installer.sh | sh
-          # sicherstellen, dass der Install-Pfad im PATH ist (Installer nutzt i. d. R. ~/.local/bin)
           echo "$HOME/.local/bin" >> $GITHUB_PATH
           obsidian-export --version
 
-      # 4) Obsidian → Jekyll exportieren
-      #    - Exportiert NUR Blog/ready/
-      #    - Kopiert NUR referenzierte Anhänge in assets/images
-      #    - Wikilinks ![[...]] werden zu ![]() umgeschrieben
       - name: Export blog posts + assets
         run: |
           rm -rf _posts assets/images
           mkdir -p _posts assets/images
           obsidian-export "vault/Blog/ready" _posts
-          # Bilder (jpg, png, gif, etc.) nach assets/images verschieben
           find _posts -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.svg" \) -exec mv {} assets/images/ \;
-      
-      - name: Fix image links in posts
-        run: |
           for file in _posts/*.md; do
             sed -i 's#](assets/#](/assets/images/#g' "$file"
           done
 
-      # 5) Ruby/Jekyll einrichten & Build
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.2"
-          bundler-cache: true
-
-      - name: Build Jekyll
-        env:
-          JEKYLL_ENV: production
+      - name: Commit & Push changes
         run: |
-          bundle install --path vendor/bundle
-          bundle exec jekyll build --trace -d _site
-
-      # 6) Für GitHub Pages vorbereiten & Artefakt hochladen
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
-        with:
-          path: _site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add _posts assets/images
+          git commit -m "Update blog content" || echo "No changes"
+          git push
