@@ -52,7 +52,15 @@ jobs:
         run: |
           rm -rf _posts assets/images
           mkdir -p _posts assets/images
-          obsidian-export "vault/Blog/ready" _posts --attachment-dir assets/images
+          obsidian-export "vault/Blog/ready" _posts
+          # Bilder (jpg, png, gif, etc.) nach assets/images verschieben
+          find _posts -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.svg" \) -exec mv {} assets/images/ \;
+      
+      - name: Fix image links in posts
+        run: |
+          for file in _posts/*.md; do
+            sed -i 's#](assets/#](/assets/images/#g' "$file"
+          done
 
       # 5) Ruby/Jekyll einrichten & Build
       - name: Setup Ruby
