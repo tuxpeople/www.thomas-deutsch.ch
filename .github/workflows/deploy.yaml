@@ -17,7 +17,7 @@ jobs:
         with:
           repository: tuxpeople/obsidian-blog-source
           path: vault
-          # token: ${{ secrets.SOURCE_TOKEN }}   # falls privat
+          token: ${{ secrets.SOURCE_TOKEN }}   # falls privat
 
       - name: Install obsidian-export
         run: |
