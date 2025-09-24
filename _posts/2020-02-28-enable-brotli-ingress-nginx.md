@@ -2,7 +2,7 @@
 aliases: []
 language: null
 title: 2020-02-28-enable-brotli-ingress-nginx
-date: Sunday 28th February 2021 17:05+0100
+date: 2021-02-28T17:05:00+0100
 categories:
 - tech
 tags:
@@ -11,7 +11,10 @@ tags:
 - Rancher
 - RKE
 - Ingress
+modified: 2025-09-24T16:25:44+0200
 ---
+
+# 2020-02-28-enable-brotli-ingress-nginx
 
 Based on [this](https://geko.cloud/how-to-enable-brotli-compression-on-ingress-nginx/) awesome blog post:
 
