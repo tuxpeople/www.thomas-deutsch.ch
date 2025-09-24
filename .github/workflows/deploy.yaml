@@ -1,0 +1,87 @@
+name: Build & Deploy Blog (Obsidian → Jekyll → Pages)
+
+on:
+  push:
+    branches: [master] # ggf. auf "main" ändern
+  workflow_dispatch:
+  schedule:
+    # Täglicher Rebuild 03:10 UTC ≈ 05:10 Europe/Zurich
+    - cron: "10 3 * * *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1) Blog-Repo (dieses Repo) auschecken
+      - name: Checkout blog repo
+        uses: actions/checkout@v4
+
+      # 2) Vault-Repo mit den Blogquellen auschecken
+      #    - Wenn PUBLIC: reicht das so.
+      #    - Wenn PRIVATE: unten kommentierte "token"-Zeile aktivieren und Repo-Secret SOURCE_TOKEN (PAT) setzen.
+      - name: Checkout vault repo
+        uses: actions/checkout@v4
+        with:
+          repository: tuxpeople/obsidian-blog-source # <-- anpassen, falls anderer Name/User
+          path: vault
+          token: ${{ secrets.SOURCE_TOKEN }} # <-- nur nötig, wenn das Vault-Repo privat ist
+
+      # 3) obsidian-export installieren
+      - name: Install obsidian-export
+        run: |
+          curl -L https://github.com/zoni/obsidian-export/releases/download/v22.7.0/obsidian-export_Linux_x86_64.tar.gz \
+            | tar -xz -C /usr/local/bin
+          obsidian-export --version
+
+      # 4) Obsidian → Jekyll exportieren
+      #    - Exportiert NUR Blog/ready/
+      #    - Kopiert NUR referenzierte Anhänge in assets/images
+      #    - Wikilinks ![[...]] werden zu ![]() umgeschrieben
+      - name: Export blog posts + assets
+        run: |
+          rm -rf _posts assets/images
+          mkdir -p _posts assets/images
+          obsidian-export "vault/Blog/ready" _posts --attachment-dir assets/images
+
+      # 5) Ruby/Jekyll einrichten & Build
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
+
+      - name: Build Jekyll
+        env:
+          JEKYLL_ENV: production
+        run: |
+          bundle install --path vendor/bundle
+          bundle exec jekyll build --trace -d _site
+
+      # 6) Für GitHub Pages vorbereiten & Artefakt hochladen
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
