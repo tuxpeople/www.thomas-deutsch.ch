@@ -52,6 +52,40 @@ jobs:
               mv "$f" "_posts/${datepart}-${title}.md"
             fi
           done
+      - name: Strip duplicate H1 (matches frontmatter title)
+        run: |
+          for f in _posts/*.md; do
+            # Titel aus dem Frontmatter holen (einfaches YAML-Parse)
+            title="$(awk '
+              BEGIN{inFM=0}
+              /^---[[:space:]]*$/{inFM=!inFM; next}
+              inFM && $1=="title:"{
+                $1=""; sub(/^[[:space:]]+/, "", $0)
+                gsub(/^"|"$/, "", $0); print $0; exit
+              }' "$f")"
+      
+            # Erste H1 nach dem Frontmatter entfernen, wenn sie dem Titel entspricht
+            awk -v t="$title" '
+              function tolower_utf(s){ # gawk on ubuntu-latest hat tolower()
+                return tolower(s)
+              }
+              BEGIN{inFM=0; removed=0}
+              /^---[[:space:]]*$/{
+                inFM=!inFM; print; next
+              }
+              inFM { print; next }
+      
+              # Nach dem Frontmatter:
+              removed==0 && ($0 ~ /^#[[:space:]]+/) {
+                line=$0
+                sub(/^#[[:space:]]+/, "", line)
+                if (tolower_utf(line)==tolower_utf(t)) { removed=1; next }
+              }
+      
+              { print }
+            ' "$f" > "$f.tmp" && mv "$f.tmp" "$f"
+          done
+
 
       - name: Commit & Push changes
         run: |
