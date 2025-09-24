@@ -1,7 +1,7 @@
 ---
 aliases: []
 language: null
-layout: post
+layout: null
 title: lorem-ipsum1
 date: 2025-09-24T16:09:00+0200
 tags:
