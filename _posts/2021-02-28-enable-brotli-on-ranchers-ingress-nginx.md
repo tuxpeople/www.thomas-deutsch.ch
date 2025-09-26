@@ -1,7 +1,7 @@
 ---
 aliases: []
 language: null
-title: 2020-02-28-enable-brotli-ingress-nginx
+title: Enable Brotli on Ranchers ingress Nginx
 date: 2021-02-28T17:05:00+0100
 categories:
 - tech
@@ -11,7 +11,7 @@ tags:
 - Rancher
 - RKE
 - Ingress
-modified: 2025-09-24T16:25:44+0200
+modified: 2025-09-25T08:32:11+0200
 ---
 
 
