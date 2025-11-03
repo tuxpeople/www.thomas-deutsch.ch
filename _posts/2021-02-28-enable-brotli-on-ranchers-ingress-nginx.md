@@ -11,7 +11,10 @@ tags:
 - Rancher
 - RKE
 - Ingress
-modified: 2025-09-25T08:32:11+0200
+- review/outdated
+modified: 2025-11-02
+review-note: Blog von 2021, basiert auf RKE1 (legacy). Aktualisieren für RKE2/K3s oder als historisch markieren.
+review-date: 2025-11-02
 ---
 
 
