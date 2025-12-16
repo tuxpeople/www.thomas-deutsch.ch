@@ -4,8 +4,8 @@ language: de
 title: Lorem Ipsum neu
 date: 2025-09-24T16:48:41+0200
 tags:
-- blog
-- review/quality
+- Blog
+- Review/Quality
 modified: 2025-09-24T16:49:46+0200
 review-date: 2025-12-01
 review-note: Lorem Ipsum Test-Datei in Blog/ready/ - sollte archiviert oder gelöscht werden. Kein echter Inhalt, nur Platzhalter-Text.

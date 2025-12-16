@@ -4,14 +4,14 @@ language: null
 title: Enable Brotli on Ranchers ingress Nginx
 date: 2021-02-28T17:05:00+0100
 categories:
-- tech
+- Tech
 tags:
 - Kubernetes
 - Container
 - Rancher
 - RKE
 - Ingress
-- review/outdated
+- Review/Outdated
 modified: 2025-11-02
 review-note: Blog von 2021, basiert auf RKE1 (legacy). Aktualisieren für RKE2/K3s oder als historisch markieren.
 review-date: 2025-11-02
