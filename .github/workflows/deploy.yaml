@@ -15,7 +15,7 @@ jobs:
       - name: Checkout vault repo
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
         with:
-          repository: tuxpeople/obsidian-blog-source
+          repository: tuxpeople/obsidian-vault-personal
           path: vault
           token: ${{ secrets.SOURCE_TOKEN }}   # falls privat
 
