@@ -9,16 +9,12 @@
 # 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-title: Thomas Deutsch - Mea fragmenti ab terra virtualis
+title: Thomas Deutsch
 email: thomas@tuxpeople.org
-description: >- # this means to ignore newlines until "baseurl:"
-  Private Webseite von Thomas Deutsch, and some tech stuff in english :-D
+description: >-
+  IT Consultant, Kubernetes & Cloud Native Practitioner. Notes from the field,
+  homelab experiments, and observations from the CNCF community.
 url: https://www.thomas-deutsch.ch
-twitter_username: tdeutsch
 github_username: tuxpeople
 minimal_mistakes_skin: default
 search: true
@@ -27,27 +23,16 @@ search: true
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes
 # Outputting
-permalink: /:categories/:title/
+permalink: /:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
-timezone: Europe/Zurich # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: Europe/Zurich
+lang: de
 
 include:
   - _pages
 
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
-
-# Plugins (previously gems:)
+# Plugins
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
@@ -57,30 +42,37 @@ plugins:
   - jekyll-include-cache
   - jekyll-seo-tag
 
-# Jekyll SEO Tag (Optional)
-# =========================
-twitter:
-  username: tdeutsch
-  card: summary
+# Jekyll Feed
+# Generates /feed.xml (all posts) plus per-tag feeds under /feed/by_tag/<tag>.xml
+# This covers audience-* and type-* tags automatically.
+feed:
+  posts_limit: 20
+  tags:
+    path: "feed/by_tag/"
+    except:
+      - blog/draft
+      - blog/kandidat
+      - blog/publiziert
+
+# Jekyll SEO Tag
 logo: assets/images/thomas.jpg
 social:
   name: Thomas Deutsch
   links:
-    - https://twitter.com/tdeutsch
+    - https://www.linkedin.com/in/thomas-deutsch-844a1839/
     - https://github.com/tuxpeople
-lang: en
 
 author:
   name   : "Thomas Deutsch"
   avatar : "/assets/images/thomas.jpg"
-  bio    : "Husband & Father. Nerdy. IT-Geek. Coffeeholic. Photography & Firefighting. Networking & Linux. Did internet, now containers & cloud."
+  bio    : "IT Consultant bei einem Schweizer Dienstleister. Kubernetes, Cloud Native & Container – täglich in Kundenprojekten und im Homelab. KubeCon-Stammgast, Miliz-Feuerwehrmann, 3D-Druck-Enthusiast."
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://www.thomas-deutsch.ch"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/tdeutsch"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/thomas-deutsch-844a1839/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/tuxpeople"
@@ -90,15 +82,18 @@ author:
 
 footer:
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/tdeutsch"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/thomas-deutsch-844a1839/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/tuxpeople"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/tdeutsch"
+    - label: "Datenschutz"
+      icon: "fas fa-fw fa-shield-alt"
+      url: "/datenschutz/"
 
 defaults:
   # _posts
@@ -109,7 +104,7 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: true
+      comments: false
       share: true
       related: true
   # _pages
@@ -120,9 +115,6 @@ defaults:
       layout: single
       author_profile: true
 
-category_archive:
-  type: liquid
-  path: /categories/
 tag_archive:
   type: liquid
   path: /tags/
