@@ -15,7 +15,10 @@ language: de
 title: Rancher Day an der KubeCon NA 2023 – Ein Rückblick
 description: Meine Notizen und Eindrücke vom Rancher Day Workshop an der KubeCon North America 2023 in Chicago – von der Installation bis zur Container-Security mit NeuVector.
 date: 2023-11-06T00:00:00+0100
-modified: 2026-03-12T12:00:02+0100
+modified: 2026-03-20T00:00:00+0100
+header:
+  image: /assets/images/posts/kubecon-na-2023-banner.jpg
+  teaser: /assets/images/posts/kubecon-na-2023-teaser.jpg
 ---
 
 
