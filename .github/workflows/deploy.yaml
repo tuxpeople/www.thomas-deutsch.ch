@@ -27,9 +27,11 @@ jobs:
 
       - name: Export blog posts + assets
         run: |
-          rm -rf _posts assets/images
-          mkdir -p _posts assets/images
+          # Nur _posts leeren, assets/images/posts bleibt erhalten (manuell verwaltete Bilder)
+          rm -rf _posts
+          mkdir -p _posts assets/images/posts
           obsidian-export "vault/Blog/ready" _posts
+          # Bilder die direkt in Obsidian-Notizen eingebettet sind, nach assets/images verschieben
           find _posts -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.svg" \) -exec mv {} assets/images/ \;
           for file in _posts/*.md; do
             sed -i 's#](assets/#](/assets/images/#g' "$file"
@@ -52,6 +54,7 @@ jobs:
               mv "$f" "_posts/${datepart}-${title}.md"
             fi
           done
+
       - name: Strip duplicate H1 (matches frontmatter title)
         run: |
           for f in _posts/*.md; do
@@ -63,7 +66,7 @@ jobs:
                 $1=""; sub(/^[[:space:]]+/, "", $0)
                 gsub(/^"|"$/, "", $0); print $0; exit
               }' "$f")"
-      
+
             # Erste H1 nach dem Frontmatter entfernen, wenn sie dem Titel entspricht
             awk -v t="$title" '
               function tolower_utf(s){ # gawk on ubuntu-latest hat tolower()
@@ -74,18 +77,17 @@ jobs:
                 inFM=!inFM; print; next
               }
               inFM { print; next }
-      
+
               # Nach dem Frontmatter:
               removed==0 && ($0 ~ /^#[[:space:]]+/) {
                 line=$0
                 sub(/^#[[:space:]]+/, "", line)
                 if (tolower_utf(line)==tolower_utf(t)) { removed=1; next }
               }
-      
+
               { print }
             ' "$f" > "$f.tmp" && mv "$f.tmp" "$f"
           done
-
 
       - name: Commit & Push changes
         run: |
