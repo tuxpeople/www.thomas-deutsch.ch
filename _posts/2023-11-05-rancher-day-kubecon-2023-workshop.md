@@ -10,7 +10,6 @@ tags:
 - audience-practitioner
 - audience-community
 - type-experience-report
-- blog/publiziert
 language: de
 title: Rancher Day an der KubeCon NA 2023 – Ein Rückblick
 description: Meine Notizen und Eindrücke vom Rancher Day Workshop an der KubeCon North America 2023 in Chicago – von der Installation bis zur Container-Security mit NeuVector.
