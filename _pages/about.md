@@ -18,3 +18,7 @@ Notizen aus dem Arbeitsalltag, Erfahrungen aus Kundenprojekten, Experimente aus 
 ## Kontakt
 
 thomas (at) tuxpeople.org
+
+## Disclaimer
+
+Alle Inhalte auf diesem Blog – Artikel, Meinungen, Einschätzungen und Empfehlungen – sind ausschliesslich meine persönlichen Ansichten und spiegeln nicht die Meinung oder Position meines Arbeitgebers wider.
