@@ -28,8 +28,6 @@ Was folgt, sind meine aufbereiteten Notizen vom ersten Tag. Kein Tutorial, kein 
  > 
  > Dieser Post ist Teil einer dreiteiligen Serie. Tag 2 behandelt Architektur und Deployment, Tag 3 Dynamic Secrets und Kubernetes-Integration.
 
----
-
 ## Was ist Vault eigentlich?
 
 Eine Frage, die man sich nach Jahren im Kubernetes-Umfeld irgendwann stellen muss: Warum Vault, wenn ich auch einfach Kubernetes Secrets verwenden kann?
@@ -44,8 +42,6 @@ Konkret kann Vault:
 * **Verschlüsselung als Service** bereitstellen – ohne dass Applikationen Kryptographie selbst implementieren müssen
 
 In der Praxis bedeutet das: Vault ist kein Drop-in-Ersatz für Kubernetes Secrets, sondern eine eigene Schicht im Security-Stack. Das Multitool-Prinzip macht es mächtig, aber auch komplex. Erste Erkenntnis des Tages: Wer Vault ernsthaft einsetzen will, braucht ein solides Grundverständnis der Konzepte – sonst konfiguriert man es falsch und merkt es erst unter Last.
-
----
 
 ## Sealed und Unsealed – warum dieser Unterschied grundlegend ist
 
@@ -71,8 +67,6 @@ Wichtiger Unterschied bei Auto-Unseal: Statt Unseal Keys kommen hier **Recovery 
 
 Eine Randnotiz: Vault setzt `mlock()` ein, um zu verhindern, dass sensible Daten aus dem RAM in den Swap-Speicher ausgelagert werden. Details wie diese zeigen, wie konsequent das Sicherheitsmodell von Vault durchgezogen ist – aber sie bedeuten auch, dass Vault etwas sorgfältiger deployed werden will als ein gewöhnlicher Dienst.
 
----
-
 ## Tokens – wie Vault Identität und Zugriff verbindet
 
 Nachdem klar ist, wie Vault sich selbst schützt, stellt sich die Frage: Wie kommuniziert man mit Vault? Die Antwort ist konsequent einheitlich: über **Tokens**.
@@ -90,8 +84,6 @@ Die drei eigentlichen Token-Typen:
 Daneben gibt es **speziell benannte Tokens**: Der wichtigste ist der **Root Token** – kein eigener Token-Typ, sondern ein Service Token mit der `root`-Policy. Root Tokens können so konfiguriert werden, dass sie kein TTL haben und nie ablaufen. Genau das macht sie zum Risiko: Ein vergessener, aktiver Root Token ist ein dauerhaftes Sicherheitsproblem. Die etablierte Best Practice – und aus meiner Sicht in produktiven Umgebungen konsequent umzusetzen – ist, Root Tokens direkt nach dem initialen Setup oder einer Notfall-Operation zu revoken.
 
 Fast alle regulären Tokens haben ein **TTL** (Time To Live). Ist das TTL abgelaufen, ist der Token wertlos – das ist kein Bug, sondern Absicht. Kurzlebige Credentials reduzieren das Schadenspotenzial bei einer Kompromittierung erheblich.
-
----
 
 ## Wer darf rein? Auth Methods und Secure Introduction
 
@@ -115,8 +107,6 @@ Separat davon gibt es das Konzept der **Secure Introduction** – also wie ein S
 * **Trusted Orchestrator**: Ein System (z. B. Ansible), das bereits gegenüber Vault authentifiziert ist, injiziert beim Deployment die notwendigen Credentials für neue Systeme.
 
 Diese Patterns sind keine Auth Methods im technischen Sinne – sie beschreiben die Architektur, wie Systeme initiell an ihre ersten Vault-Tokens gelangen. Für mich ist die Kubernetes Auth Method der relevanteste Einstiegspunkt, da ich täglich mit Kubernetes-Workloads arbeite: Ein Pod beweist seine Identität mit einem von Kubernetes ausgestellten Token, Vault verifiziert das gegen die Kubernetes API und stellt einen Token mit den passenden Berechtigungen aus – kein statisches Passwort, keine langlebige Credential.
-
----
 
 ## Policies – das Herzstück der Zugriffskontrolle
 
@@ -148,8 +138,6 @@ Zwei besondere Policies gibt es immer und können nicht gelöscht werden:
 
 In der Praxis empfiehlt es sich, Policies entlang von Rollen in der Organisation zu schreiben – nicht entlang von Systemen. Das macht sie wartbarer, wenn Teams oder Zuständigkeiten sich ändern.
 
----
-
 ## Static Secrets mit KV v2
 
 Zum Abschluss des ersten Tags noch ein praktischer Einstiegspunkt für alle, die Vault zunächst für einfache Anwendungsfälle nutzen wollen: die **KV Secrets Engine (Version 2)**.
@@ -157,8 +145,6 @@ Zum Abschluss des ersten Tags noch ein praktischer Einstiegspunkt für alle, die
 Das Prinzip ist einfach: Write before Read – ein Secret wird gespeichert, bevor es gelesen werden kann. Was KV v2 gegenüber einer simplen Datenbank interessant macht, ist die automatische **Versionierung**: Jede Schreiboperation erstellt eine neue Version, standardmässig werden 10 Versionen aufbewahrt. Das ist besonders relevant, wenn Secrets regelmässig rotiert werden oder versehentliche Änderungen rückgängig gemacht werden müssen – Rollbacks auf einen bekannt-guten Stand sind damit kein Problem.
 
 Für einfache Anwendungsfälle wie einen API-Key, den man sicher ablegen und gelegentlich rotieren will, ist KV v2 ein pragmatischer Einstieg. Für dynamische Credentials – also Datenbank-Passwörter oder Cloud-Credentials, die Vault selbst generiert und rotiert – gibt es spezialisierte Secrets Engines, die in Tag 3 Thema sind.
-
----
 
 ## Fazit Tag 1
 

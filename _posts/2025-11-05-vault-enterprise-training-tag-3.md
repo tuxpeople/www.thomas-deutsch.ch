@@ -26,8 +26,6 @@ Der dritte und letzte Kurstag war für mich der interessanteste – nicht weil d
  > 
  > Dieser Post ist Teil einer dreiteiligen Serie. [Tag 1](/vault-enterprise-training-tag-1) behandelt Basics, Tokens und Policies. [Tag 2](/vault-enterprise-training-tag-2) behandelt Architektur, Deployment und Replication.
 
----
-
 ## Plugins: Vault ist erweiterbar
 
 Vault ist von Grund auf plugin-basiert aufgebaut. Jede Auth Method, jede Secrets Engine, jede Database-Integration ist ein Plugin. Das macht Vault erweiterbar, ohne den Core anfassen zu müssen.
@@ -45,8 +43,6 @@ Externe Plugins müssen explizit registriert werden, bevor sie aktiviert werden 
 1. Globalen Plugin-Reload triggern – ohne Neustart des Vault-Prozesses
 
 Das Plugin-Modell erklärt auch, warum Vault so viele Integrationen hat: Jede neue Datenbank, jeder neue Cloud-Provider, jedes neue Auth-System ist potenziell ein Plugin.
-
----
 
 ## Dynamic Secrets: Das Killer-Feature
 
@@ -70,8 +66,6 @@ Der Lifecycle von Dynamic Secrets ist vollständig automatisiert:
 * **Erstellen** beim Request
 * **Verwenden** durch die Applikation
 * **Revoken** nach TTL oder explizit
-
----
 
 ## Vault in Kubernetes: Zwei Patterns
 
@@ -131,8 +125,6 @@ vault server -dev
 
 Das ist nützlich in CI/CD-Pipelines zum Testen von Vault-Konfigurationen – und **ausschliesslich** dafür. In Produktion hat der Dev-Mode nichts verloren: keine Persistenz, kein TLS, kein echter Schutz.
 
----
-
 ## Multi-Factor Authentication
 
 Vault unterstützt MFA – in zwei konzeptuell verschiedenen Varianten:
@@ -145,8 +137,6 @@ Zwei Authentifizierungs-Flows:
 
 * **Single Phase**: Zweiter Faktor wird direkt beim Login mitgegeben
 * **Two Phase**: Login funktioniert, aber ein MFA-Request wird separat gestellt und muss bestätigt werden, bevor der Token vollständig gültig ist
-
----
 
 ## Vault Agent und Vault Proxy
 
@@ -167,8 +157,6 @@ Beide sind **Client-Daemons**, die zwischen Applikation und Vault-Server vermitt
 * Kann Clients zwingen, das automatisch authentifizierte Token des Proxy zu verwenden
 
 Der wesentliche Unterschied: Vault Agent rendert und verwaltet Secrets aktiv (Templates, Dateien, Env-Vars). Vault Proxy fungiert primär als intelligenter API-Relay mit Auto-Auth und Caching – er hat kein Templating, aber dafür einen kleineren Feature-Footprint, was ihn für bestimmte Szenarien schlanker macht.
-
----
 
 ## Vault mit Terraform verwalten
 
@@ -203,8 +191,6 @@ Was sich sinnvoll als Code verwalten lässt:
 **Caveats:** Einige Vault-Ressourcen sind state-sensitiv – z. B. Unseal-Keys, Recovery-Keys oder Root-Tokens. Diese gehören nicht in Terraform State. Sensible Outputs sollten mit `sensitive = true` markiert werden.
 
 Für mich ist die Terraform-Integration der konsequente letzte Schritt: Vault konfiguriert als Code, versioniert in Git, nachvollziehbar und reproduzierbar.
-
----
 
 ## Fazit: Was bleibt nach drei Tagen Vault
 

@@ -26,8 +26,6 @@ Der zweite Trainingstag hatte einen klaren Schwerpunkt: Wie sieht ein produktion
  > 
  > Dieser Post ist Teil einer dreiteiligen Serie. [Tag 1](/vault-enterprise-training-tag-1) behandelt Basics, Tokens und Policies. Tag 3 behandelt Dynamic Secrets und Kubernetes-Integration.
 
----
-
 ## Secrets Access Patterns: Wie Applikationen an ihre Secrets kommen
 
 Bevor wir zur Infrastruktur kamen, stand ein konzeptuell wichtiges Thema auf dem Programm – denn die beste Vault-Architektur nützt wenig, wenn unklar ist, wie Applikationen überhaupt auf ihre Secrets zugreifen sollen.
@@ -45,8 +43,6 @@ Kubernetes-native Patterns wie der Vault Secrets Operator synchronisieren Vault-
 
 Die Wahl des richtigen Patterns hängt stark vom Kontext ab – es gibt kein universell richtiges Muster.
 
----
-
 ## Namespaces: Multitenancy auf Vault-Ebene (Enterprise only)
 
 Wer Vault für mehrere Teams oder Kunden betreiben will, stösst früh auf die Frage der Isolation. Genau dafür gibt es **Vault Namespaces** – ein Feature, das nur in der Enterprise Edition verfügbar ist.
@@ -63,8 +59,6 @@ Namespaces können verschachtelt werden. Policies sind dabei standardmässig auf
 * Organisationsstruktur erfordert klare Trennung
 
 **Antipattern:** Zu viele Namespace-Ebenen. Wie bei Kubernetes-Namespaces gilt: Struktur ist gut, aber Überstruktur erzeugt Verwaltungsaufwand ohne echten Sicherheitsgewinn.
-
----
 
 ## Referenzarchitektur: 6 Nodes mit Redundancy Zones
 
@@ -113,8 +107,6 @@ Ein Detail mit grosser operativer Konsequenz: Wenn alle konfigurierten Audit Dev
 
 In der Praxis bedeutet das: Mindestens zwei Audit Devices konfigurieren (z. B. File + Syslog), damit der Betrieb bei Ausfall eines Devices weitergeht. Das klingt trivial, wird aber in der Planung oft vergessen – bis es zu spät ist.
 
----
-
 ## Vault Replication: DR und Performance
 
 Enterprise Vault bietet zwei Replication-Modi – mit grundlegend unterschiedlichen Zwecken. Wer beide verwechselt, plant seine Disaster-Recovery-Strategie falsch.
@@ -145,8 +137,6 @@ PR-Replication verfolgt ein anderes Ziel: horizontale Skalierung und geografisch
 * **Pfad-Filterung** möglich: Bestimmte Secrets können aus der Replikation ausgeschlossen werden – relevant für Datenschutzanforderungen wie DSGVO oder revDSG, wenn EU-Daten in der EU bleiben sollen
 * Sinnvoll, wenn Vault-Clients in verschiedenen Regionen sitzen und niedrige Latenz brauchen
 
----
-
 ## Monitoring: Drei Ebenen, die zusammenspielen müssen
 
 Ein laufendes Vault ist keine Garantie für ein funktionierendes Vault – deshalb ist Monitoring mehr als nur ein Uptime-Check.
@@ -156,8 +146,6 @@ Ein laufendes Vault ist keine Garantie für ein funktionierendes Vault – desha
 **Telemetrie:** Vault exponiert Metriken über verschiedene Backends (Prometheus, StatsD etc.). Besonders relevante Metriken: Seal-Status, Token-Ausstellungsrate, Secrets-Zugriffe, Raft-Leader-Wechsel. Ein fertiges Grafana-Dashboard gibt es unter [grafana.com](https://grafana.com/grafana/dashboards/12904-hashicorp-vault/).
 
 **Synthetic Monitoring:** Regelmässige Test-Requests gegen die Vault API, um sicherzustellen, dass Vault nicht nur läuft, sondern auch korrekt antwortet. Das fängt Fälle ab, in denen Vault technisch "up" ist, aber z. B. wegen fehlender Audit Devices keine Requests mehr verarbeitet – ein Szenario, das ein reiner Port-Check nicht erkennen würde.
-
----
 
 ## Fazit Tag 2
 
