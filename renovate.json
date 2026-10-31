@@ -8,7 +8,7 @@
   "dependencyDashboardTitle": "Renovate Dashboard \ud83e\udd16",
   "automerge": true,
   "automergeType": "pr",
-  "platformAutomerge": true,
+  "platformAutomerge": false,
   "packageRules": [
     {
       "matchUpdateTypes": [
